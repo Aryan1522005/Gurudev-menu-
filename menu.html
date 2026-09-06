@@ -12,7 +12,6 @@
 
     <title>Hotel Gurudev - Menu</title>
 
-
     <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
@@ -30,16 +29,20 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            font-family: Arial, sans-serif;
-            background: #eeeeee;
         }
 
 
-        /* ========================================
-           TOP BAR
-        ======================================== */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #d5d5d5;
+        }
 
-        .topbar {
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .header {
 
             position: fixed;
 
@@ -47,28 +50,36 @@
             left: 0;
             right: 0;
 
-            height: 70px;
+            height: 115px;
 
             background: #2E7D32;
-
-            display: flex;
-            align-items: center;
-
-            padding: 10px 15px;
 
             z-index: 1000;
 
             box-shadow:
-                0 2px 8px rgba(0,0,0,0.3);
+                0 3px 10px rgba(0,0,0,0.3);
+
+        }
+
+
+        /* Top row */
+
+        .header-top {
+
+            height: 58px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 8px 12px;
 
         }
 
 
         /* Back button */
 
-        .back-btn {
-
-            flex-shrink: 0;
+        .back-button {
 
             border: none;
 
@@ -76,22 +87,24 @@
 
             color: white;
 
-            font-size: 15px;
+            border-radius: 22px;
 
-            font-weight: 600;
+            padding: 9px 15px;
 
-            padding: 11px 16px;
+            font-size: 14px;
 
-            border-radius: 25px;
+            font-weight: bold;
 
             cursor: pointer;
+
+            white-space: nowrap;
 
         }
 
 
-        .back-btn:hover {
+        .back-button:active {
 
-            background: #F57C00;
+            transform: scale(0.96);
 
         }
 
@@ -102,58 +115,39 @@
 
             color: white;
 
-            font-size: 19px;
+            font-size: 18px;
 
-            font-weight: 600;
+            font-weight: bold;
 
-            margin-left: 15px;
+            margin-left: 12px;
 
             white-space: nowrap;
 
         }
 
 
-        /* ========================================
-           SEARCH
-        ======================================== */
+        /* =====================================================
+           SEARCH BAR
+        ===================================================== */
 
-        .search-wrapper {
+        .search-area {
 
-            flex: 1;
+            padding:
 
-            max-width: 500px;
+                4px
 
-            margin-left: auto;
+                12px
 
-            margin-right: 15px;
-
-            position: relative;
+                10px;
 
         }
 
 
-        .search-box {
+        .search-box-wrapper {
+
+            position: relative;
 
             width: 100%;
-
-            height: 45px;
-
-            padding:
-
-                0 45px
-
-                0 18px;
-
-            border: none;
-
-            border-radius: 25px;
-
-            font-size: 15px;
-
-            outline: none;
-
-            box-shadow:
-                0 2px 6px rgba(0,0,0,0.2);
 
         }
 
@@ -162,140 +156,317 @@
 
             position: absolute;
 
-            right: 17px;
+            left: 16px;
 
             top: 50%;
 
             transform: translateY(-50%);
 
-            font-size: 19px;
+            font-size: 18px;
 
             pointer-events: none;
 
         }
 
 
-        /* ========================================
-           SEARCH RESULTS
-        ======================================== */
+        .search-input {
 
-        .search-results {
+            width: 100%;
 
-            position: absolute;
+            height: 46px;
 
-            top: 50px;
+            border: none;
 
-            left: 0;
+            outline: none;
 
-            right: 0;
+            border-radius: 24px;
+
+            padding:
+
+                0 45px
+
+                0 45px;
+
+            font-size: 16px;
 
             background: white;
 
             color: #333;
 
-            border-radius: 10px;
-
             box-shadow:
-                0 5px 15px rgba(0,0,0,0.3);
 
-            max-height: 400px;
-
-            overflow-y: auto;
-
-            display: none;
-
-            z-index: 2000;
+                0 2px 6px rgba(0,0,0,0.25);
 
         }
 
 
-        .search-result {
+        .search-input::placeholder {
 
-            padding: 12px 15px;
+            color: #888;
+
+        }
+
+
+        /* Clear button */
+
+        .clear-button {
+
+            position: absolute;
+
+            right: 12px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            font-size: 20px;
+
+            color: #777;
+
+            cursor: pointer;
+
+            display: none;
+
+        }
+
+
+        /* =====================================================
+           SEARCH RESULTS
+        ===================================================== */
+
+        .search-panel {
+
+            position: fixed;
+
+            top: 115px;
+
+            left: 0;
+
+            right: 0;
+
+            z-index: 900;
+
+            background: white;
+
+            display: none;
+
+            box-shadow:
+
+                0 5px 12px rgba(0,0,0,0.25);
+
+        }
+
+
+        .search-header {
+
+            padding:
+
+                12px 15px 8px;
+
+            color: #777;
+
+            font-size: 13px;
+
+            font-weight: 600;
 
             border-bottom:
+
+                1px solid #eeeeee;
+
+        }
+
+
+        .results-list {
+
+            max-height: 55vh;
+
+            overflow-y: auto;
+
+        }
+
+
+        /* Individual result */
+
+        .result {
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+
+                13px 15px;
+
+            border-bottom:
+
                 1px solid #eeeeee;
 
             cursor: pointer;
 
-            text-align: left;
+            background: white;
 
         }
 
 
-        .search-result:last-child {
-
-            border-bottom: none;
-
-        }
-
-
-        .search-result:hover {
+        .result:hover {
 
             background: #f5f5f5;
 
         }
 
 
-        .result-page {
+        .result:active {
 
-            color: #2E7D32;
+            background: #eeeeee;
 
-            font-size: 12px;
+        }
+
+
+        .result-icon {
+
+            width: 40px;
+
+            height: 40px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background: #E8F5E9;
+
+            border-radius: 50%;
+
+            font-size: 19px;
+
+            margin-right: 12px;
+
+        }
+
+
+        .result-info {
+
+            flex: 1;
+
+            min-width: 0;
+
+        }
+
+
+        .result-name {
+
+            color: #222;
+
+            font-size: 15px;
 
             font-weight: bold;
 
-            margin-bottom: 4px;
+            line-height: 1.35;
 
         }
 
 
-        .result-text {
+        .result-category {
 
-            font-size: 14px;
+            margin-top: 4px;
 
-            line-height: 1.4;
+            color: #777;
+
+            font-size: 12px;
 
         }
 
 
-        .no-result {
+        .result-arrow {
 
-            padding: 15px;
+            color: #2E7D32;
+
+            font-size: 20px;
+
+            margin-left: 8px;
+
+        }
+
+
+        /* No results */
+
+        .no-results {
+
+            padding: 30px 20px;
 
             text-align: center;
 
             color: #777;
 
-            font-size: 14px;
+        }
+
+
+        .no-results-icon {
+
+            font-size: 35px;
+
+            margin-bottom: 8px;
 
         }
 
 
-        /* ========================================
+        .no-results-title {
+
+            font-weight: bold;
+
+            color: #444;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .no-results-text {
+
+            font-size: 13px;
+
+        }
+
+
+        /* =====================================================
            PDF AREA
-        ======================================== */
+        ===================================================== */
 
         .pdf-container {
 
             position: absolute;
 
-            top: 70px;
+            top: 115px;
 
             left: 0;
+
             right: 0;
+
             bottom: 0;
 
             overflow-y: auto;
 
-            padding: 25px 10px 40px;
+            padding:
+
+                15px
+
+                6px
+
+                40px;
 
             background: #d0d0d0;
 
         }
 
 
-        /* Each PDF page */
+        /* PDF page */
 
         .pdf-page {
 
@@ -305,12 +476,17 @@
 
             max-width: 900px;
 
-            margin: 0 auto 25px auto;
+            margin:
+
+                0 auto
+
+                15px;
 
             background: white;
 
             box-shadow:
-                0 3px 12px rgba(0,0,0,0.3);
+
+                0 2px 10px rgba(0,0,0,0.3);
 
         }
 
@@ -326,58 +502,70 @@
         }
 
 
-        /* Invisible text layer */
+        /* Page number */
 
-        .text-layer {
-
-            position: absolute;
-
-            top: 0;
-
-            left: 0;
-
-            right: 0;
-
-            bottom: 0;
-
-            overflow: hidden;
-
-            line-height: 1;
-
-            pointer-events: none;
-
-        }
-
-
-        .text-layer span {
+        .page-number {
 
             position: absolute;
 
-            white-space: pre;
+            bottom: 8px;
 
-            transform-origin: 0% 0%;
+            right: 8px;
 
-            color: transparent;
+            background:
 
-            user-select: text;
+                rgba(0,0,0,0.55);
+
+            color: white;
+
+            padding:
+
+                5px 9px;
+
+            border-radius: 15px;
+
+            font-size: 11px;
+
+            z-index: 5;
 
         }
 
 
-        /* Search highlight */
+        /* =====================================================
+           SEARCHED PAGE
+        ===================================================== */
 
-        .search-highlight {
+        .page-found {
 
-            background: rgba(255, 193, 7, 0.55);
-
-            border-radius: 3px;
+            animation: pagePulse 1.5s ease;
 
         }
 
 
-        /* ========================================
+        @keyframes pagePulse {
+
+            0% {
+
+                outline:
+
+                    5px solid #FF9800;
+
+            }
+
+            100% {
+
+                outline:
+
+                    0 solid transparent;
+
+            }
+
+        }
+
+
+        /* =====================================================
            LOADING
-        ======================================== */
+        ===================================================== */
 
         .loading {
 
@@ -387,18 +575,14 @@
 
             color: #555;
 
-            font-size: 16px;
-
         }
 
 
         .spinner {
 
-            width: 40px;
+            width: 42px;
 
-            height: 40px;
-
-            margin: 0 auto 15px;
+            height: 42px;
 
             border:
 
@@ -410,6 +594,10 @@
 
             border-radius: 50%;
 
+            margin:
+
+                0 auto 15px;
+
             animation:
 
                 spin 0.8s linear infinite;
@@ -420,69 +608,103 @@
         @keyframes spin {
 
             from {
+
                 transform: rotate(0deg);
+
             }
 
             to {
+
                 transform: rotate(360deg);
+
             }
 
         }
 
 
-        /* ========================================
-           PAGE NUMBER
-        ======================================== */
+        /* =====================================================
+           DESKTOP
+        ===================================================== */
 
-        .page-number {
+        @media (min-width: 701px) {
 
-            position: absolute;
+            .header {
 
-            bottom: 8px;
+                height: 70px;
 
-            right: 10px;
+                display: flex;
 
-            background:
-                rgba(0,0,0,0.55);
+                align-items: center;
 
-            color: white;
+                padding:
 
-            padding: 4px 8px;
+                    0 15px;
 
-            border-radius: 10px;
+            }
 
-            font-size: 11px;
 
-            z-index: 5;
+            .header-top {
+
+                height: auto;
+
+                padding: 0;
+
+            }
+
+
+            .search-area {
+
+                flex: 1;
+
+                max-width: 550px;
+
+                margin-left: auto;
+
+                padding:
+
+                    0 0 0 20px;
+
+            }
+
+
+            .search-input {
+
+                height: 44px;
+
+            }
+
+
+            .search-panel {
+
+                top: 70px;
+
+                left: auto;
+
+                width: 550px;
+
+                right: 15px;
+
+                border-radius:
+
+                    0 0 10px 10px;
+
+            }
+
+
+            .pdf-container {
+
+                top: 70px;
+
+            }
 
         }
 
 
-        /* ========================================
-           MOBILE
-        ======================================== */
+        /* =====================================================
+           VERY SMALL PHONES
+        ===================================================== */
 
-        @media (max-width: 700px) {
-
-            .topbar {
-
-                height: 125px;
-
-                flex-wrap: wrap;
-
-                padding: 8px 10px;
-
-            }
-
-
-            .back-btn {
-
-                font-size: 13px;
-
-                padding: 9px 13px;
-
-            }
-
+        @media (max-width: 380px) {
 
             .restaurant-name {
 
@@ -493,49 +715,20 @@
             }
 
 
-            .search-wrapper {
-
-                order: 3;
-
-                width: 100%;
-
-                max-width: none;
-
-                margin:
-
-                    7px 0 0 0;
-
-            }
-
-
-            .search-box {
-
-                height: 42px;
-
-            }
-
-
-            .search-results {
-
-                top: 47px;
-
-            }
-
-
-            .pdf-container {
-
-                top: 125px;
+            .back-button {
 
                 padding:
 
-                    15px 5px 30px;
+                    8px 12px;
+
+                font-size: 13px;
 
             }
 
 
-            .pdf-page {
+            .search-input {
 
-                margin-bottom: 15px;
+                font-size: 15px;
 
             }
 
@@ -549,57 +742,100 @@
 <body>
 
 
-    <!-- =====================================
-         TOP BAR
-    ====================================== -->
+    <!-- =====================================================
+         HEADER
+    ===================================================== -->
 
-    <div class="topbar">
-
-
-        <button
-            class="back-btn"
-            onclick="goBack()"
-        >
-            ← Back
-        </button>
+    <header class="header">
 
 
-        <div class="restaurant-name">
-            Hotel Gurudev
-        </div>
+        <div class="header-top">
 
 
-        <div class="search-wrapper">
-
-            <input
-                id="searchBox"
-                class="search-box"
-                type="text"
-                placeholder="Search food items..."
-                autocomplete="off"
+            <button
+                class="back-button"
+                onclick="goBack()"
             >
-
-            <span class="search-icon">
-                🔍
-            </span>
+                ← Back
+            </button>
 
 
-            <div
-                id="searchResults"
-                class="search-results"
-            ></div>
+            <div class="restaurant-name">
+                Hotel Gurudev
+            </div>
+
 
         </div>
 
+
+        <div class="search-area">
+
+
+            <div class="search-box-wrapper">
+
+
+                <span class="search-icon">
+                    🔍
+                </span>
+
+
+                <input
+                    id="searchInput"
+                    class="search-input"
+                    type="text"
+                    placeholder="Search food items..."
+                    autocomplete="off"
+                >
+
+
+                <button
+                    id="clearButton"
+                    class="clear-button"
+                    onclick="clearSearch()"
+                >
+                    ✕
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SEARCH RESULTS
+    ===================================================== -->
+
+    <div
+        id="searchPanel"
+        class="search-panel"
+    >
+
+        <div
+            id="searchHeader"
+            class="search-header"
+        ></div>
+
+
+        <div
+            id="resultsList"
+            class="results-list"
+        ></div>
 
     </div>
 
 
-    <!-- =====================================
-         PDF
-    ====================================== -->
 
-    <div
+    <!-- =====================================================
+         PDF
+    ===================================================== -->
+
+    <main
         id="pdfContainer"
         class="pdf-container"
     >
@@ -608,68 +844,55 @@
 
             <div class="spinner"></div>
 
-            Loading menu...
+            <div>
+                Loading menu...
+            </div>
 
         </div>
 
-    </div>
+    </main>
 
 
 
     <script>
 
-        /*
-         * ============================================
-         * SETTINGS
-         * ============================================
-         */
-
-
-        // Your exact PDF filename
+        /* =====================================================
+           SETTINGS
+        ===================================================== */
 
         const PDF_URL =
             "New gurudev menucard bota.pdf";
 
 
-        // PDF.js worker
-
         pdfjsLib.GlobalWorkerOptions.workerSrc =
             "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-
-        /*
-         * Store extracted page information
-         */
 
         let pdfDocument = null;
 
         let pages = [];
 
 
-        /*
-         * ============================================
-         * NORMALIZE TEXT
-         * ============================================
-         */
+        /* =====================================================
+           NORMALIZE
+        ===================================================== */
 
-        function normalizeText(text) {
+        function normalize(text) {
 
             return text
 
+                .toLowerCase()
+
                 .replace(/\s+/g, " ")
 
-                .trim()
-
-                .toLowerCase();
+                .trim();
 
         }
 
 
-        /*
-         * ============================================
-         * LOAD PDF
-         * ============================================
-         */
+        /* =====================================================
+           LOAD PDF
+        ===================================================== */
 
         async function loadPDF() {
 
@@ -681,25 +904,17 @@
 
             try {
 
-                /*
-                 * Load PDF
-                 */
-
                 pdfDocument =
                     await pdfjsLib.getDocument(
                         PDF_URL
                     ).promise;
 
 
-                /*
-                 * Clear loading message
-                 */
-
                 container.innerHTML = "";
 
 
                 /*
-                 * Load every page
+                 * Render all pages
                  */
 
                 for (
@@ -716,18 +931,14 @@
 
 
                 console.log(
-                    "PDF loaded:",
-                    pdfDocument.numPages,
-                    "pages"
+                    "Menu loaded:",
+                    pages
                 );
 
 
             } catch (error) {
 
-                console.error(
-                    "PDF error:",
-                    error
-                );
+                console.error(error);
 
 
                 container.innerHTML = `
@@ -738,8 +949,7 @@
 
                         <br><br>
 
-                        Please make sure the PDF file is in
-                        the same folder as menu.html.
+                        Please check the PDF filename.
 
                     </div>
 
@@ -750,13 +960,13 @@
         }
 
 
-        /*
-         * ============================================
-         * RENDER PAGE
-         * ============================================
-         */
+        /* =====================================================
+           RENDER PAGE
+        ===================================================== */
 
-        async function renderPage(pageNumber) {
+        async function renderPage(
+            pageNumber
+        ) {
 
             const page =
                 await pdfDocument.getPage(
@@ -765,12 +975,12 @@
 
 
             /*
-             * Scale the PDF page
+             * Use good quality
              */
 
             const viewport =
                 page.getViewport({
-                    scale: 1.5
+                    scale: 1.6
                 });
 
 
@@ -779,7 +989,9 @@
              */
 
             const pageDiv =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             pageDiv.className =
@@ -840,40 +1052,19 @@
             );
 
 
-            /*
-             * Text layer
-             */
-
-            const textLayer =
-                document.createElement(
-                    "div"
+            container =
+                document.getElementById(
+                    "pdfContainer"
                 );
 
 
-            textLayer.className =
-                "text-layer";
-
-
-            pageDiv.appendChild(
-                textLayer
+            container.appendChild(
+                pageDiv
             );
 
 
             /*
-             * Add page to website
-             */
-
-            document
-                .getElementById(
-                    "pdfContainer"
-                )
-                .appendChild(
-                    pageDiv
-                );
-
-
-            /*
-             * Render canvas
+             * Render PDF
              */
 
             await page.render({
@@ -895,60 +1086,86 @@
                 await page.getTextContent();
 
 
-            /*
-             * Build text string
-             */
-
             const text =
                 textContent.items
-                    .map(item => item.str)
+
+                    .map(
+                        item => item.str
+                    )
+
                     .join(" ");
 
 
             /*
-             * Store page data
+             * Store searchable page
              */
 
             pages.push({
 
-                pageNumber:
+                page:
                     pageNumber,
 
                 text:
                     text,
 
                 normalized:
-                    normalizeText(text)
+                    normalize(text)
 
             });
 
         }
 
 
-        /*
-         * ============================================
-         * SEARCH
-         * ============================================
-         */
+        /* =====================================================
+           SEARCH
+        ===================================================== */
 
         function searchMenu() {
 
             const input =
                 document.getElementById(
-                    "searchBox"
+                    "searchInput"
                 );
 
 
-            const results =
+            const panel =
                 document.getElementById(
-                    "searchResults"
+                    "searchPanel"
+                );
+
+
+            const header =
+                document.getElementById(
+                    "searchHeader"
+                );
+
+
+            const resultsList =
+                document.getElementById(
+                    "resultsList"
+                );
+
+
+            const clearButton =
+                document.getElementById(
+                    "clearButton"
                 );
 
 
             const query =
-                normalizeText(
+                normalize(
                     input.value
                 );
+
+
+            /*
+             * Show / hide clear button
+             */
+
+            clearButton.style.display =
+                query
+                    ? "block"
+                    : "none";
 
 
             /*
@@ -957,13 +1174,11 @@
 
             if (!query) {
 
-                results.style.display =
+                panel.style.display =
                     "none";
 
-                results.innerHTML =
+                resultsList.innerHTML =
                     "";
-
-                clearHighlights();
 
                 return;
 
@@ -971,43 +1186,54 @@
 
 
             /*
-             * Search pages
+             * Find matching pages
              */
 
             const matches =
-                pages.filter(page =>
-                    page.normalized.includes(
-                        query
-                    )
+                pages.filter(
+                    page =>
+                        page.normalized
+                            .includes(query)
                 );
 
 
-            results.innerHTML =
-                "";
-
-
             /*
-             * No matches
+             * No result
              */
 
-            if (matches.length === 0) {
+            if (
+                matches.length === 0
+            ) {
 
-                results.innerHTML = `
+                header.innerText =
+                    "No matches";
 
-                    <div class="no-result">
 
-                        ❌ No results found
+                resultsList.innerHTML = `
 
-                        <br>
+                    <div class="no-results">
 
-                        Try another food name.
+                        <div class="no-results-icon">
+                            🔍
+                        </div>
+
+                        <div class="no-results-title">
+                            No food item found
+                        </div>
+
+                        <div class="no-results-text">
+                            Try another name, such as
+                            Paneer, Dosa or Rice.
+                        </div>
 
                     </div>
 
                 `;
 
-                results.style.display =
+
+                panel.style.display =
                     "block";
+
 
                 return;
 
@@ -1015,7 +1241,23 @@
 
 
             /*
-             * Display results
+             * Header
+             */
+
+            header.innerText =
+                matches.length === 1
+
+                    ? "Found on 1 page"
+
+                    : `Found on ${matches.length} pages`;
+
+
+            resultsList.innerHTML =
+                "";
+
+
+            /*
+             * Create result cards
              */
 
             matches.forEach(
@@ -1028,49 +1270,69 @@
 
 
                     result.className =
-                        "search-result";
+                        "result";
+
+
+                    /*
+                     * Find a useful category
+                     */
+
+                    const category =
+                        findCategory(
+                            page.text
+                        );
 
 
                     result.innerHTML = `
 
-                        <div class="result-page">
+                        <div class="result-icon">
+                            🍽️
+                        </div>
 
-                            📄 Page ${page.pageNumber}
+                        <div class="result-info">
+
+                            <div class="result-name">
+
+                                ${formatSearchName(
+                                    query,
+                                    page.text
+                                )}
+
+                            </div>
+
+                            <div class="result-category">
+
+                                ${category}
+                                · Page ${page.page}
+
+                            </div>
 
                         </div>
 
-                        <div class="result-text">
-
-                            ${createSnippet(
-                                page.text,
-                                query
-                            )}
-
+                        <div class="result-arrow">
+                            ›
                         </div>
 
                     `;
 
-
-                    /*
-                     * Click result
-                     */
 
                     result.addEventListener(
                         "click",
                         function() {
 
                             goToPage(
-                                page.pageNumber
+                                page.page
                             );
 
-                            results.style.display =
+
+                            panel.style.display =
                                 "none";
 
                         }
                     );
 
 
-                    results.appendChild(
+                    resultsList.appendChild(
                         result
                     );
 
@@ -1078,53 +1340,56 @@
             );
 
 
-            results.style.display =
+            panel.style.display =
                 "block";
-
-
-            /*
-             * Highlight search
-             */
-
-            highlightPages(query);
 
         }
 
 
-        /*
-         * ============================================
-         * CREATE SEARCH SNIPPET
-         * ============================================
-         */
+        /* =====================================================
+           CREATE CLEAN RESULT NAME
+        ===================================================== */
 
-        function createSnippet(
-            text,
-            query
+        function formatSearchName(
+            query,
+            text
         ) {
 
-            const lower =
+            /*
+             * Find the search word
+             */
+
+            const lowerText =
                 text.toLowerCase();
 
 
             const position =
-                lower.indexOf(
+                lowerText.indexOf(
                     query.toLowerCase()
                 );
 
 
-            if (position === -1) {
+            if (
+                position === -1
+            ) {
 
                 return escapeHTML(
-                    text.substring(0, 180)
+                    text.substring(0, 45)
                 );
 
             }
 
 
+            /*
+             * Instead of displaying the
+             * entire PDF page text,
+             * show a short clean section.
+             */
+
             const start =
                 Math.max(
                     0,
-                    position - 70
+                    position - 25
                 );
 
 
@@ -1133,11 +1398,11 @@
                     text.length,
                     position +
                     query.length +
-                    100
+                    40
                 );
 
 
-            let snippet =
+            let result =
                 text.substring(
                     start,
                     end
@@ -1145,98 +1410,165 @@
 
 
             /*
-             * Escape HTML
+             * Clean whitespace
              */
 
-            snippet =
-                escapeHTML(
-                    snippet
-                );
-
-
-            /*
-             * Highlight query
-             */
-
-            const escapedQuery =
-                escapeRegex(query);
-
-
-            const regex =
-                new RegExp(
-                    `(${escapedQuery})`,
-                    "gi"
-                );
-
-
-            snippet =
-                snippet.replace(
-                    regex,
-                    "<strong>$1</strong>"
-                );
+            result =
+                result
+                    .replace(
+                        /\s+/g,
+                        " "
+                    )
+                    .trim();
 
 
             if (start > 0) {
 
-                snippet =
-                    "... " + snippet;
+                result =
+                    "... " + result;
 
             }
 
 
-            if (end < text.length) {
+            if (
+                end <
+                text.length
+            ) {
 
-                snippet +=
+                result +=
                     " ...";
 
             }
 
 
-            return snippet;
+            return highlightQuery(
+                escapeHTML(result),
+                query
+            );
 
         }
 
 
-        /*
-         * ============================================
-         * HIGHLIGHT PDF PAGES
-         * ============================================
-         *
-         * The PDF is rendered as canvas.
-         * We therefore use the page search result
-         * to navigate to the correct page.
-         *
-         * ============================================
-         */
+        /* =====================================================
+           HIGHLIGHT SEARCH TERM
+        ===================================================== */
 
-        function highlightPages(query) {
+        function highlightQuery(
+            text,
+            query
+        ) {
 
-            /*
-             * Remove old highlights
-             */
-
-            clearHighlights();
-
-        }
+            const escaped =
+                escapeRegex(
+                    query
+                );
 
 
-        function clearHighlights() {
+            const regex =
+                new RegExp(
+                    `(${escaped})`,
+                    "gi"
+                );
 
-            /*
-             * Nothing required here because
-             * PDF pages are rendered on canvas.
-             */
+
+            return text.replace(
+                regex,
+                "<strong>$1</strong>"
+            );
 
         }
 
 
-        /*
-         * ============================================
-         * GO TO PAGE
-         * ============================================
-         */
+        /* =====================================================
+           CATEGORY
+        ===================================================== */
 
-        function goToPage(pageNumber) {
+        function findCategory(
+            text
+        ) {
+
+            const upper =
+                text.toUpperCase();
+
+
+            if (
+                upper.includes(
+                    "STARTER"
+                )
+            ) {
+
+                return "Starter";
+
+            }
+
+
+            if (
+                upper.includes(
+                    "CHINESE"
+                )
+            ) {
+
+                return "Chinese";
+
+            }
+
+
+            if (
+                upper.includes(
+                    "ROTI"
+                )
+            ) {
+
+                return "Roti";
+
+            }
+
+
+            if (
+                upper.includes(
+                    "SABJI"
+                )
+            ) {
+
+                return "Sabji";
+
+            }
+
+
+            if (
+                upper.includes(
+                    "RICE"
+                )
+            ) {
+
+                return "Rice";
+
+            }
+
+
+            if (
+                upper.includes(
+                    "BIRYANI"
+                )
+            ) {
+
+                return "Biryani";
+
+            }
+
+
+            return "Menu";
+
+        }
+
+
+        /* =====================================================
+           GO TO PAGE
+        ===================================================== */
+
+        function goToPage(
+            pageNumber
+        ) {
 
             const page =
                 document.getElementById(
@@ -1251,43 +1583,96 @@
             }
 
 
+            /*
+             * Scroll PDF
+             */
+
             page.scrollIntoView({
 
-                behavior: "smooth",
+                behavior:
+                    "smooth",
 
-                block: "start"
+                block:
+                    "start"
 
             });
 
 
             /*
-             * Brief visual indication
+             * Highlight page
              */
 
-            page.style.outline =
-                "4px solid #FF9800";
+            page.classList.remove(
+                "page-found"
+            );
 
 
-            setTimeout(
-                function() {
+            void page.offsetWidth;
 
-                    page.style.outline =
-                        "";
 
-                },
-                1800
+            page.classList.add(
+                "page-found"
             );
 
         }
 
 
-        /*
-         * ============================================
-         * ESCAPE REGEX
-         * ============================================
-         */
+        /* =====================================================
+           CLEAR SEARCH
+        ===================================================== */
 
-        function escapeRegex(text) {
+        function clearSearch() {
+
+            const input =
+                document.getElementById(
+                    "searchInput"
+                );
+
+
+            input.value =
+                "";
+
+
+            document
+                .getElementById(
+                    "searchPanel"
+                )
+                .style.display =
+                    "none";
+
+
+            document
+                .getElementById(
+                    "clearButton"
+                )
+                .style.display =
+                    "none";
+
+
+            input.focus();
+
+        }
+
+
+        /* =====================================================
+           BACK
+        ===================================================== */
+
+        function goBack() {
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        /* =====================================================
+           ESCAPE REGEX
+        ===================================================== */
+
+        function escapeRegex(
+            text
+        ) {
 
             return text.replace(
                 /[.*+?^${}()|[\]\\]/g,
@@ -1297,13 +1682,13 @@
         }
 
 
-        /*
-         * ============================================
-         * ESCAPE HTML
-         * ============================================
-         */
+        /* =====================================================
+           ESCAPE HTML
+        ===================================================== */
 
-        function escapeHTML(text) {
+        function escapeHTML(
+            text
+        ) {
 
             return text
 
@@ -1335,29 +1720,13 @@
         }
 
 
-        /*
-         * ============================================
-         * BACK BUTTON
-         * ============================================
-         */
-
-        function goBack() {
-
-            window.location.href =
-                "index.html";
-
-        }
-
-
-        /*
-         * ============================================
-         * SEARCH EVENT
-         * ============================================
-         */
+        /* =====================================================
+           SEARCH INPUT
+        ===================================================== */
 
         document
             .getElementById(
-                "searchBox"
+                "searchInput"
             )
             .addEventListener(
                 "input",
@@ -1366,32 +1735,61 @@
 
 
         /*
-         * Close search results when
-         * clicking outside
+         * Pressing Escape clears search
+         */
+
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .addEventListener(
+                "keydown",
+                function(event) {
+
+                    if (
+                        event.key ===
+                        "Escape"
+                    ) {
+
+                        clearSearch();
+
+                    }
+
+                }
+            );
+
+
+        /*
+         * Click outside search
          */
 
         document.addEventListener(
             "click",
             function(event) {
 
-                const wrapper =
+                const searchArea =
                     document.querySelector(
-                        ".search-wrapper"
+                        ".search-area"
+                    );
+
+
+                const panel =
+                    document.getElementById(
+                        "searchPanel"
                     );
 
 
                 if (
-                    !wrapper.contains(
+                    !searchArea.contains(
+                        event.target
+                    ) &&
+                    !panel.contains(
                         event.target
                     )
                 ) {
 
-                    document
-                        .getElementById(
-                            "searchResults"
-                        )
-                        .style.display =
-                            "none";
+                    panel.style.display =
+                        "none";
 
                 }
 
@@ -1399,11 +1797,9 @@
         );
 
 
-        /*
-         * ============================================
-         * START
-         * ============================================
-         */
+        /* =====================================================
+           START
+        ===================================================== */
 
         loadPDF();
 
