@@ -6,15 +6,21 @@
 
     <title>Hotel Gurudev - Food Menu</title>
 
-    <!-- PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playball&display=swap');
 
-        body, html {
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
             margin: 0;
             padding: 0;
+            min-height: 100%;
+        }
+
+        body {
             font-family: 'Montserrat', sans-serif;
             min-height: 100vh;
             background-color: #2E7D32;
@@ -23,15 +29,15 @@
         .section {
             min-height: 100vh;
             padding: 40px 20px;
-            box-sizing: border-box;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
             color: #ffffff;
         }
 
-        /* Typography */
+        /* Hotel name */
         .logo-text {
             font-family: 'Playball', cursive;
             font-size: 64px;
@@ -40,6 +46,7 @@
             color: #FF9800;
         }
 
+        /* Restaurant subtitle */
         .logo-sub {
             font-size: 20px;
             font-weight: 600;
@@ -48,6 +55,7 @@
             text-transform: uppercase;
         }
 
+        /* Location */
         .dining-text {
             font-size: 12px;
             letter-spacing: 1.5px;
@@ -57,123 +65,47 @@
             color: #FFB74D;
         }
 
+        /* Description */
         .description {
             font-size: 15px;
             line-height: 1.6;
             max-width: 550px;
-            margin-bottom: 25px;
+            margin: 0 0 35px 0;
             font-weight: 400;
         }
 
-        /* Search Area */
-        .search-container {
-            width: 100%;
-            max-width: 550px;
-            margin: 5px auto 25px auto;
-        }
-
-        .search-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .search-box {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 30px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 16px;
-            outline: none;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-        }
-
-        .search-box:focus {
-            box-shadow: 0 0 0 3px #FFB74D, 0 4px 10px rgba(0,0,0,0.25);
-        }
-
-        .search-status {
-            font-size: 13px;
-            margin-top: 10px;
-            color: #FFE0B2;
-            min-height: 18px;
-        }
-
-        /* Search Results */
-        .results {
-            width: 100%;
-            max-width: 550px;
-            display: none;
-            margin-bottom: 25px;
-        }
-
-        .result-card {
-            background: #ffffff;
-            color: #333333;
-            border-radius: 12px;
-            padding: 15px 18px;
-            margin-bottom: 10px;
-            text-align: left;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.25);
-            cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
-
-        .result-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-
-        .result-page {
-            color: #2E7D32;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
-        }
-
-        .result-text {
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .highlight {
-            background-color: #FFE082;
-            color: #000000;
-            font-weight: 600;
-            padding: 1px 3px;
-            border-radius: 3px;
-        }
-
-        .no-results {
-            background: rgba(255,255,255,0.15);
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-        }
-
-        /* Button */
+        /* Menu button */
         .menu-btn {
             display: inline-block;
             width: 80%;
             max-width: 280px;
             padding: 16px;
+
             text-align: center;
             text-decoration: none;
+
             font-size: 18px;
             font-weight: 600;
+
             border-radius: 30px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: transform 0.2s ease, background-color 0.2s ease;
+
             background-color: #FF9800;
             color: #FFFFFF;
+
             border: 2px solid #FF9800;
+
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+
+            transition:
+                transform 0.2s ease,
+                background-color 0.2s ease,
+                box-shadow 0.2s ease;
         }
 
         .menu-btn:hover {
             background-color: #F57C00;
             border-color: #F57C00;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.35);
         }
 
         .menu-btn:active {
@@ -185,7 +117,7 @@
             font-family: 'Playball', cursive;
             color: #FFB74D;
             font-size: 32px;
-            margin-top: 30px;
+            margin-top: 40px;
         }
 
         /* Mobile */
@@ -204,13 +136,18 @@
                 letter-spacing: 2px;
             }
 
-            .description {
-                font-size: 14px;
+            .dining-text {
+                font-size: 11px;
             }
 
-            .search-box {
-                font-size: 15px;
-                padding: 15px 18px;
+            .description {
+                font-size: 14px;
+                max-width: 500px;
+            }
+
+            .menu-btn {
+                font-size: 17px;
+                padding: 15px;
             }
 
             .tagline {
@@ -222,455 +159,37 @@
 
 <body>
 
-<div class="section">
+    <div class="section">
 
-    <h1 class="logo-text">Hotel Gurudev</h1>
+        <h1 class="logo-text">
+            Hotel Gurudev
+        </h1>
 
-    <h2 class="logo-sub">
-        Pure Veg Family Restaurant
-    </h2>
+        <h2 class="logo-sub">
+            Pure Veg Family Restaurant
+        </h2>
 
-    <div class="dining-text">
-        Pune-Nashik Highway, Bota Bypass
-    </div>
-
-    <p class="description">
-        Welcome! Enjoy our exceptional pure vegetarian dining experience.
-        From traditional South Indian snacks and Maharashtrian Thalis to
-        Punjabi Sabji specialities and Chinese dishes, every meal is
-        meticulously prepared to tantalize your senses.
-    </p>
-
-
-    <!-- SEARCH -->
-    <div class="search-container">
-
-        <div class="search-title">
-            🔍 Search Food Items
+        <div class="dining-text">
+            Pune-Nashik Highway, Bota Bypass
         </div>
 
-        <input
-            type="text"
-            id="searchBox"
-            class="search-box"
-            placeholder="Search e.g. Paneer, Dosa, Biryani..."
-            autocomplete="off"
-        >
+        <p class="description">
+            Welcome! Enjoy our exceptional pure vegetarian dining experience.
+            From traditional South Indian snacks and Maharashtrian Thalis to
+            Punjabi Sabji specialities and Chinese dishes, every meal is
+            meticulously prepared to tantalize your senses.
+        </p>
 
-        <div id="searchStatus" class="search-status">
-            Loading menu...
+        <!-- Opens our custom PDF viewer -->
+        <a href="menu.html" class="menu-btn">
+            🍽️ View Food Menu
+        </a>
+
+        <div class="tagline">
+            Taste the tradition...
         </div>
 
     </div>
-
-
-    <!-- SEARCH RESULTS -->
-    <div id="results" class="results"></div>
-
-
-    <!-- ORIGINAL PDF BUTTON -->
-    <a
-        href="New gurudev menucard bota.pdf#view=FitH"
-        target="_blank"
-        class="menu-btn"
-    >
-        🍽️ View Food Menu
-    </a>
-
-
-    <div class="tagline">
-        Taste the tradition...
-    </div>
-
-</div>
-
-
-<script>
-
-    /*
-     * ============================================
-     * PDF SEARCH
-     * ============================================
-     */
-
-    // IMPORTANT:
-    // This must exactly match your PDF filename
-    const PDF_URL = "New gurudev menucard bota.pdf";
-
-    // Tell PDF.js where its worker file is
-    pdfjsLib.GlobalWorkerOptions.workerSrc =
-        "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
-
-
-    let menuPages = [];
-
-
-    /*
-     * Normalize text so searching is easier.
-     *
-     * Example:
-     * "Paneer   Tikka   Dry"
-     *
-     * becomes:
-     * "paneer tikka dry"
-     */
-    function normalizeText(text) {
-
-        return text
-            .replace(/\s+/g, " ")
-            .trim()
-            .toLowerCase();
-
-    }
-
-
-    /*
-     * Load the PDF and extract text
-     * from every page.
-     */
-    async function loadPDF() {
-
-        const status =
-            document.getElementById("searchStatus");
-
-        try {
-
-            const pdf =
-                await pdfjsLib.getDocument(PDF_URL).promise;
-
-
-            console.log(
-                "PDF loaded. Pages:",
-                pdf.numPages
-            );
-
-
-            for (let pageNumber = 1;
-                 pageNumber <= pdf.numPages;
-                 pageNumber++) {
-
-
-                const page =
-                    await pdf.getPage(pageNumber);
-
-
-                const textContent =
-                    await page.getTextContent();
-
-
-                /*
-                 * PDF.js returns individual text pieces.
-                 * Join them together.
-                 */
-                const text =
-                    textContent.items
-                        .map(item => item.str)
-                        .join(" ");
-
-
-                menuPages.push({
-
-                    page: pageNumber,
-
-                    text: text,
-
-                    normalized:
-                        normalizeText(text)
-
-                });
-
-
-                status.innerText =
-                    `Loading menu... ${pageNumber}/${pdf.numPages}`;
-
-            }
-
-
-            status.innerText =
-                `Menu loaded • ${pdf.numPages} pages`;
-
-
-            console.log(
-                "Menu text extraction complete."
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                "PDF loading error:",
-                error
-            );
-
-            status.innerText =
-                "Unable to load the menu. Please check the PDF filename.";
-
-        }
-
-    }
-
-
-    /*
-     * Highlight matching text
-     */
-    function highlightText(text, searchTerm) {
-
-        if (!searchTerm) {
-            return text;
-        }
-
-
-        const escaped =
-            searchTerm.replace(
-                /[.*+?^${}()|[\]\\]/g,
-                "\\$&"
-            );
-
-
-        const regex =
-            new RegExp(
-                `(${escaped})`,
-                "gi"
-            );
-
-
-        return text.replace(
-            regex,
-            '<span class="highlight">$1</span>'
-        );
-
-    }
-
-
-    /*
-     * Create a short preview around
-     * the matching food item.
-     */
-    function getSnippet(text, searchTerm) {
-
-        const lowerText =
-            text.toLowerCase();
-
-        const lowerSearch =
-            searchTerm.toLowerCase();
-
-        const position =
-            lowerText.indexOf(lowerSearch);
-
-
-        if (position === -1) {
-
-            return text.substring(0, 180) + "...";
-
-        }
-
-
-        /*
-         * Show approximately 80 characters
-         * before and after the match.
-         */
-        const start =
-            Math.max(0, position - 80);
-
-        const end =
-            Math.min(
-                text.length,
-                position + searchTerm.length + 120
-            );
-
-
-        let snippet =
-            text.substring(start, end);
-
-
-        if (start > 0) {
-            snippet = "... " + snippet;
-        }
-
-
-        if (end < text.length) {
-            snippet += " ...";
-        }
-
-
-        return snippet;
-
-    }
-
-
-    /*
-     * Search the PDF
-     */
-    function searchMenu() {
-
-        const searchBox =
-            document.getElementById("searchBox");
-
-        const results =
-            document.getElementById("results");
-
-        const status =
-            document.getElementById("searchStatus");
-
-
-        const searchTerm =
-            normalizeText(searchBox.value);
-
-
-        /*
-         * Nothing typed
-         */
-        if (!searchTerm) {
-
-            results.innerHTML = "";
-
-            results.style.display = "none";
-
-            status.innerText =
-                `Menu loaded • ${menuPages.length} pages`;
-
-            return;
-
-        }
-
-
-        /*
-         * Search every PDF page
-         */
-        const matches =
-            menuPages.filter(page =>
-                page.normalized.includes(searchTerm)
-            );
-
-
-        results.innerHTML = "";
-
-
-        /*
-         * No results
-         */
-        if (matches.length === 0) {
-
-            results.style.display = "block";
-
-            results.innerHTML = `
-                <div class="no-results">
-                    ❌ No food item found for
-                    "<strong>${escapeHTML(searchTerm)}</strong>"
-                </div>
-            `;
-
-            status.innerText =
-                "No matches found";
-
-            return;
-
-        }
-
-
-        /*
-         * Results found
-         */
-        results.style.display = "block";
-
-
-        status.innerText =
-            `${matches.length} page${matches.length > 1 ? "s" : ""} found`;
-
-
-        matches.forEach(page => {
-
-
-            const card =
-                document.createElement("div");
-
-
-            card.className =
-                "result-card";
-
-
-            const snippet =
-                getSnippet(
-                    page.text,
-                    searchTerm
-                );
-
-
-            card.innerHTML = `
-
-                <div class="result-page">
-                    📄 Page ${page.page}
-                </div>
-
-                <div class="result-text">
-                    ${highlightText(
-                        escapeHTML(snippet),
-                        searchTerm
-                    )}
-                </div>
-
-            `;
-
-
-            /*
-             * When user clicks a result,
-             * open the PDF directly on that page.
-             */
-            card.addEventListener(
-                "click",
-                function() {
-
-                    const pdfPage =
-                        `${PDF_URL}#page=${page.page}&zoom=page-width`;
-
-                    window.open(
-                        pdfPage,
-                        "_blank"
-                    );
-
-                }
-            );
-
-
-            results.appendChild(card);
-
-        });
-
-    }
-
-
-    /*
-     * Protect HTML from user input
-     */
-    function escapeHTML(text) {
-
-        return text
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-
-    }
-
-
-    /*
-     * Search while typing
-     */
-    document
-        .getElementById("searchBox")
-        .addEventListener(
-            "input",
-            searchMenu
-        );
-
-
-    /*
-     * Load PDF when website opens
-     */
-    loadPDF();
-
-</script>
 
 </body>
 </html>
