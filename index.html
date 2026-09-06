@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Hotel Gurudev - Food Menu</title>
 
     <style>
@@ -13,8 +12,7 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
+        html, body {
             margin: 0;
             padding: 0;
             min-height: 100%;
@@ -37,7 +35,6 @@
             color: #ffffff;
         }
 
-        /* Hotel name */
         .logo-text {
             font-family: 'Playball', cursive;
             font-size: 64px;
@@ -46,16 +43,14 @@
             color: #FF9800;
         }
 
-        /* Restaurant subtitle */
         .logo-sub {
             font-size: 20px;
             font-weight: 600;
             letter-spacing: 3px;
-            margin: 5px 0 15px 0;
+            margin: 5px 0 15px;
             text-transform: uppercase;
         }
 
-        /* Location */
         .dining-text {
             font-size: 12px;
             letter-spacing: 1.5px;
@@ -65,54 +60,40 @@
             color: #FFB74D;
         }
 
-        /* Description */
         .description {
             font-size: 15px;
             line-height: 1.6;
             max-width: 550px;
-            margin: 0 0 35px 0;
-            font-weight: 400;
+            margin: 0 0 35px;
         }
 
-        /* Menu button */
         .menu-btn {
             display: inline-block;
             width: 80%;
             max-width: 280px;
             padding: 16px;
-
             text-align: center;
             text-decoration: none;
-
             font-size: 18px;
             font-weight: 600;
-
             border-radius: 30px;
-
             background-color: #FF9800;
             color: #FFFFFF;
-
             border: 2px solid #FF9800;
-
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-
-            transition:
-                transform 0.2s ease,
-                background-color 0.2s ease,
-                box-shadow 0.2s ease;
+            transition: 0.2s ease;
         }
 
         .menu-btn:hover {
             background-color: #F57C00;
             border-color: #F57C00;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.35);
+            transform: translateY(-1px);
         }
 
         .menu-btn:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
         }
 
-        /* Tagline */
         .tagline {
             font-family: 'Playball', cursive;
             color: #FFB74D;
@@ -120,9 +101,7 @@
             margin-top: 40px;
         }
 
-        /* Mobile */
         @media (max-width: 600px) {
-
             .section {
                 padding: 30px 15px;
             }
@@ -136,18 +115,8 @@
                 letter-spacing: 2px;
             }
 
-            .dining-text {
-                font-size: 11px;
-            }
-
             .description {
                 font-size: 14px;
-                max-width: 500px;
-            }
-
-            .menu-btn {
-                font-size: 17px;
-                padding: 15px;
             }
 
             .tagline {
@@ -161,9 +130,7 @@
 
     <div class="section">
 
-        <h1 class="logo-text">
-            Hotel Gurudev
-        </h1>
+        <h1 class="logo-text">Hotel Gurudev</h1>
 
         <h2 class="logo-sub">
             Pure Veg Family Restaurant
@@ -180,7 +147,6 @@
             meticulously prepared to tantalize your senses.
         </p>
 
-        <!-- Opens our custom PDF viewer -->
         <a href="menu.html" class="menu-btn">
             🍽️ View Food Menu
         </a>
