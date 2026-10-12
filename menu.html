@@ -349,18 +349,40 @@
          */
 
         .pdf-viewer {
-
             width: 100%;
-
-            height: calc(100vh - 155px);
-
-            min-height: 600px;
-
             border: none;
-
             display: block;
-
             background: #222;
+            padding: 8px;
+            overflow: visible;
+            touch-action: pan-y;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .pdf-page {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 12px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+            scroll-margin-top: 190px;
+            overflow: hidden;
+        }
+
+        .pdf-page canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            touch-action: pan-y;
+        }
+
+        .pdf-error {
+            padding: 24px 16px;
+            color: #fff;
+            background: #333;
+            text-align: center;
+            line-height: 1.6;
         }
 
 
@@ -433,16 +455,12 @@
 
 
             .pdf-viewer {
+                padding: 5px;
+            }
 
-                /*
-                 * Keep the entire PDF viewer
-                 * visible on mobile.
-                 */
-
-                height:
-                    calc(100vh - 145px);
-
-                min-height: 550px;
+            .pdf-page {
+                margin-bottom: 8px;
+                scroll-margin-top: 175px;
             }
 
 
@@ -585,17 +603,20 @@
 
         -->
 
-        <iframe
+        <div
             id="pdfViewer"
             class="pdf-viewer"
-            src="New%20gurudev%20menucard%20bota.pdf#view=FitH"
-            title="Hotel Gurudev Complete Food Menu"
-            loading="eager">
-        </iframe>
+            role="region"
+            aria-label="Hotel Gurudev complete food menu">
+        </div>
 
 
     </section>
 
+
+    <!-- PDF.js renders pages directly in the webpage.
+         This avoids the iPhone native PDF iframe scrolling/zoom issue. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <!-- =================================
          MENU SEARCH DATABASE
@@ -635,18 +656,71 @@
 
 
         /* =========================
-           PDF LOADED
+           LOAD AND RENDER PDF WITH PDF.JS
            ========================= */
 
-        pdfViewer.addEventListener(
-            "load",
-            function () {
+        const PDF_URL = "New%20gurudev%20menucard%20bota.pdf";
 
-                pdfLoading.style.display =
-                    "none";
+        async function loadPdfMenu() {
+            try {
+                if (!window.pdfjsLib) {
+                    throw new Error("PDF.js could not be loaded. Check your internet connection and try again.");
+                }
 
+                pdfjsLib.GlobalWorkerOptions.workerSrc =
+                    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+                const pdf = await pdfjsLib.getDocument(PDF_URL).promise;
+                pdfViewer.innerHTML = "";
+
+                // Create page containers first so search can target any page.
+                for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+                    const pageContainer = document.createElement("section");
+                    pageContainer.className = "pdf-page";
+                    pageContainer.id = "pdf-page-" + pageNumber;
+                    pageContainer.setAttribute("aria-label", "Menu page " + pageNumber);
+                    pdfViewer.appendChild(pageContainer);
+                }
+
+                // Render each page to a responsive canvas.
+                for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+                    const page = await pdf.getPage(pageNumber);
+                    const pageContainer = document.getElementById("pdf-page-" + pageNumber);
+                    const baseViewport = page.getViewport({ scale: 1 });
+                    const availableWidth = Math.max(240, pageContainer.clientWidth || pdfViewer.clientWidth - 16);
+                    const scale = availableWidth / baseViewport.width;
+                    const viewport = page.getViewport({ scale });
+                    const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+
+                    const canvas = document.createElement("canvas");
+                    const context = canvas.getContext("2d", { alpha: false });
+                    canvas.width = Math.floor(viewport.width * outputScale);
+                    canvas.height = Math.floor(viewport.height * outputScale);
+                    canvas.style.width = "100%";
+                    canvas.style.height = "auto";
+                    pageContainer.appendChild(canvas);
+
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport,
+                        transform: outputScale !== 1
+                            ? [outputScale, 0, 0, outputScale, 0, 0]
+                            : null
+                    }).promise;
+                }
+
+                pdfLoading.style.display = "none";
+            } catch (error) {
+                console.error("Unable to load restaurant menu PDF:", error);
+                pdfLoading.style.display = "none";
+                pdfViewer.innerHTML =
+                    '<div class="pdf-error">The menu could not be loaded.<br>' +
+                    'Please check that <strong>New gurudev menucard bota.pdf</strong> is in the same GitHub Pages folder as this page, and that the PDF.js CDN can be reached.<br>' +
+                    '<button type="button" onclick="loadPdfMenu()" style="margin-top:12px;padding:10px 18px;border:0;border-radius:20px;background:#FF9800;color:#fff;font-weight:700;">Try again</button></div>';
             }
-        );
+        }
+
+        loadPdfMenu();
 
 
         /* =========================
@@ -795,47 +869,26 @@
            ========================= */
 
         function openPdfPage(page) {
+            const targetPage = document.getElementById("pdf-page-" + Number(page));
 
-            /*
-             * Keep the complete PDF loaded.
-             *
-             * Changing the iframe hash tells
-             * the PDF viewer which page to show.
-             */
+            searchResults.style.display = "none";
+            searchInput.value = "";
 
-            pdfViewer.src =
-                "New%20gurudev%20menucard%20bota.pdf"
-                + "#page="
-                + page
-                + "&view=FitH";
+            if (!targetPage) {
+                // If the PDF is still rendering, retry after the current rendering task.
+                setTimeout(function () {
+                    const retryTarget = document.getElementById("pdf-page-" + Number(page));
+                    if (retryTarget) {
+                        retryTarget.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                }, 500);
+                return;
+            }
 
-
-            /*
-             * Close search results
-             */
-
-            searchResults.style.display =
-                "none";
-
-
-            /*
-             * Clear search box
-             */
-
-            searchInput.value =
-                "";
-
-
-            /*
-             * Scroll to PDF
-             */
-
-            document.querySelector(
-                ".pdf-section"
-            ).scrollIntoView({
-                behavior: "smooth"
+            targetPage.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
             });
-
         }
 
 
